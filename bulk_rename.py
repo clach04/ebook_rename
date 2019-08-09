@@ -12,6 +12,11 @@ import sys
 import mobi_renamer
 
 
+# file type identification
+# ideally use file magic - for now use filename extensions
+def get_rename_function(filename):
+    return mobi_renamer.generate_filename
+
 def main(argv=None):
     if argv is None:
         argv = sys.argv
@@ -26,7 +31,8 @@ def main(argv=None):
     print('Using %s' % in_directory)
     for filename in glob.glob(os.path.join(in_directory, '*')):
         print(repr(filename))
-        new_filename = mobi_renamer.generate_mobi_name(filename)
+        generate_filename = get_rename_function(filename)
+        new_filename = generate_filename(filename)
         print(repr(new_filename))
         new_filename = os.path.join(out_directory, new_filename)
         print(repr(new_filename))

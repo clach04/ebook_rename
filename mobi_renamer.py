@@ -113,6 +113,7 @@ def generate_mobi_name(in_filename, template=Template(u'$author - $title.$extn')
     print(repr(new_filename))
     return new_filename
 
+generate_filename = generate_mobi_name
 
 def main(argv=None):
     if argv is None:
