@@ -10,12 +10,16 @@ import os
 import sys
 
 import mobi_renamer
+import pdf_renamer
 
 
 # file type identification
 # ideally use file magic - for now use filename extensions
 def get_rename_function(filename):
-    return mobi_renamer.generate_filename
+    if filename.lower().endswith('pdf'):
+        return pdf_renamer.generate_filename
+    else:
+        return mobi_renamer.generate_filename
 
 def main(argv=None):
     if argv is None:
