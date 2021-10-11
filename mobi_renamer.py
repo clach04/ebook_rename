@@ -6,6 +6,9 @@
     author - title.FILE_EXTENSION
 
 TODO:
+  * Author name maybe surname first or first name first depending on meta data, compare:
+      * Koontz, Dean - Odd Thomas - You Are Destined to Be Together Forever (Short Story) (Kindle Single).azw3
+      * Richard Kadrey - Hollywood Dead.mobi
   * directories/multiple files
   * allow control over the format of the new filename
       * other meta data, series information?
@@ -39,6 +42,7 @@ def safe_filename(in_filename):
 
     # replace characters that are not valid for filenames on different Operating Systems
     # TODO \u2013 to '-'?
+    # TODO \u2014 to '-'?
     rename_safe_map = {
         '<': u'[',
         '>': u']',
@@ -62,7 +66,8 @@ def safe_filename(in_filename):
 
     # strip and condence white space, delete leading and trailing while space
     name = name.strip()
-    name = re.sub(ur"\s", u" ", name)
+    #name = re.sub(ur"\s", u" ", name)  # Py 3.5.3 fails with SyntaxError
+    name = re.sub(r"\s", u" ", name)
     while '  ' in name:
         name = name.replace('  ', ' ')
     name = name.strip()
@@ -110,7 +115,7 @@ def generate_mobi_name(in_filename, template=Template(u'$author - $title.$extn')
     new_filename = template.substitute(author=author, title=title, extn=extn)  # TODO use a dict?
     #new_filename = '      .... ??? <1of 2>  "hello"...........' ## DEBUG
     new_filename = safe_filename(new_filename)
-    print(repr(new_filename))
+    #print(repr(new_filename))
     return new_filename
 
 generate_filename = generate_mobi_name
@@ -119,13 +124,14 @@ def main(argv=None):
     if argv is None:
         argv = sys.argv
 
-    # dumb argv processing for simplicity - TODO update and use a library
-    #in_filename = argv[1]
     in_filename = 'C:\\Users\\clach04\\py\\DeDRM_tools\\DeDRM_Windows_Application\\DeDRM_App\\DeDRM_lib\\lib\\Black Rain_nodrm.azw3'
     in_filename = 'C:\\Users\\clach04\\py\\DeDRM_tools\\DeDRM_Windows_Application\\DeDRM_App\\DeDRM_lib\\lib\\kindle_books_fixed\\\\Broken Homes (PC Peter Grant Book 4)_nodrm.azw3'
     in_filename = 'C:\\Users\\clach04\\py\\DeDRM_tools\\DeDRM_Windows_Application\\DeDRM_App\\DeDRM_lib\\lib\\kindle_books_fixed\\A Latent Dark_nodrm.mobi'
     #in_filename = 'C:\\Users\\clach04\\py\\DeDRM_tools\\DeDRM_Windows_Application\\DeDRM_App\\DeDRM_lib\\lib\\kindle_books_fixed\\Besieged – Stories from The Iron Druid Chronicles_nodrm.azw3'
-    generate_mobi_name(in_filename)
+    # dumb argv processing for simplicity - TODO update and use a library
+    in_filename = argv[1]
+    print(repr(generate_mobi_name(in_filename)))
+    print(generate_mobi_name(in_filename))
 
     return 0
 

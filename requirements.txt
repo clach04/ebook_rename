@@ -1,0 +1,8 @@
+# mobi-python
+#git+git://github.com/clach04/mobi-python@master
+git+git://github.com/clach04/mobi-python@py3_kuhnchris
+#git+git://github.com/clach04/mobi-python@py3plus_btimby
+# py3plus_btimby has undeclared six dependency
+#six
+# PyPDF2
+
