@@ -2,7 +2,7 @@
 
 Rename ebook file names.
 
-Currently Amazon mobi (azw3) based files only supported.
+Currently Amazon [mobi](https://wiki.mobileread.com/wiki/MOBI) (azw3) based files only supported.
 
 Usage:
 
